@@ -25,6 +25,9 @@ warnings.filterwarnings('ignore')
 
 # ===================== 确保必要目录存在 =====================
 
+print("当前工作目录:", os.getcwd())
+print("脚本所在目录:", os.path.dirname(os.path.abspath(__file__)))
+
 
 ensure_dir("model")
 ensure_dir("shap_images")
