@@ -25,9 +25,6 @@ warnings.filterwarnings('ignore')
 
 # ===================== 确保必要目录存在 =====================
 
-print("当前工作目录:", os.getcwd())
-print("脚本所在目录:", os.path.dirname(os.path.abspath(__file__)))
-
 
 ensure_dir("model")
 ensure_dir("shap_images")
@@ -35,12 +32,30 @@ ensure_dir("predictions_history")
 
 
 # ===================== 【安全读取】背景图并转为 Base64 字符串 =====================
+# def get_background_base64(img_name="可视化.png"):
+#     with open(img_name, "rb") as f:
+#         img_byte_data = f.read()
+#     return base64.b64encode(img_byte_data).decode()
+# bg_base64_str = get_background_base64("可视化.png")
+# bg_css_url = f"url('data:image/png;base64,{bg_base64_str}')"
+
 def get_background_base64(img_name="可视化.png"):
-    with open(img_name, "rb") as f:
-        img_byte_data = f.read()
-    return base64.b64encode(img_byte_data).decode()
+    import os
+    # 获取当前脚本所在目录
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    # 先在当前目录找，找不到就去父目录找
+    for path in [os.path.join(script_dir, img_name), os.path.join(os.path.dirname(script_dir), img_name)]:
+        if os.path.exists(path):
+            with open(path, "rb") as f:
+                return base64.b64encode(f.read()).decode()
+    # 如果都找不到，返回 None（后续会使用纯色背景）
+    return None
+
 bg_base64_str = get_background_base64("可视化.png")
-bg_css_url = f"url('data:image/png;base64,{bg_base64_str}')"
+if bg_base64_str:
+    bg_css_url = f"url('data:image/png;base64,{bg_base64_str}')"
+else:
+    bg_css_url = "#0a1229"   # 纯色背景，与你的深色主题一致
 
 # ===================== 1. 注入修复级科技感 CSS（使用拼接 + 修正顶部与侧边栏遮挡） =====================
 # ===================== 1. 主 CSS（背景 + 全局样式） =====================
