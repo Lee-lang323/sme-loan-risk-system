@@ -425,7 +425,12 @@ new MutationObserver(()=>setTimeout(fixDropdownDark,30)).observe(document.body,{
 """
 
 # 注入主 CSS（注意使用拼接方式）
-st.markdown(css_part_1 + bg_css_url + css_part_2, unsafe_allow_html=True)
+# st.markdown(css_part_1 + bg_css_url + css_part_2, unsafe_allow_html=True)
+
+if bg_base64_str:
+    st.markdown(css_part_1 + bg_css_url + css_part_2, unsafe_allow_html=True)
+else:
+    st.markdown(css_part_1 + css_part_2, unsafe_allow_html=True)
 
 # ===================== 2. 追加 header 背景图固定 =====================
 st.markdown(
