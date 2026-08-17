@@ -1,0 +1,28 @@
+{
+  "timestamp": "2026-07-18 20:56:59",
+  "source": "temp_train_data_sample.csv",
+  "rows": 20,
+  "columns": [
+    "loan_id",
+    "application_date",
+    "disbursement_date",
+    "business_id",
+    "business_sector",
+    "business_state",
+    "years_in_business",
+    "annual_revenue_ngn",
+    "num_employees",
+    "principal_ngn",
+    "interest_rate_annual",
+    "tenor_months",
+    "lender",
+    "collateral_value_ngn",
+    "credit_score",
+    "default_90d",
+    "default_180d",
+    "违约概率",
+    "风险等级",
+    "预测结果"
+  ],
+  "file": "predictions_history\\pred_20260718_205659_406827.parquet"
+}
